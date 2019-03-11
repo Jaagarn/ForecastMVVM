@@ -1,7 +1,8 @@
-package com.example.forecastmvvm
+package com.example.forecastmvvm.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.forecastmvvm.R
 
 class MainActivity : AppCompatActivity() {
 

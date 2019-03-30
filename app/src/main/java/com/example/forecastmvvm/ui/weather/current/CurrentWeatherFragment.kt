@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 
 import com.example.forecastmvvm.R
+<<<<<<< HEAD
 import com.example.forecastmvvm.data.network.*
 import com.example.forecastmvvm.ui.base.ScopedFragment
+=======
+import com.example.forecastmvvm.data.ApixuWeatherApiService
+>>>>>>> parent of 819a8bf... Episode 4
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,6 +39,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+<<<<<<< HEAD
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(CurrentWeatherViewModel::class.java)
 
@@ -50,6 +54,17 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
             textView.text = it.toString()
         })
+=======
+        viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
+        // TODO: Use the ViewModel
+
+        val apiService = ApixuWeatherApiService()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val currentWeatherResponse = apiService.getCurrentWeather("London").await()
+            textView.text = currentWeatherResponse.toString()
+        }
+>>>>>>> parent of 819a8bf... Episode 4
     }
 
 }

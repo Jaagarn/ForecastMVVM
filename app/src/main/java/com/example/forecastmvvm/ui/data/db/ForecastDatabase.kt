@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.forecastmvvm.ui.data.db.entity.CurrentWeatherEntry
-import java.security.AccessControlContext
 
 
 @Database(
@@ -16,8 +15,7 @@ abstract class ForecastDatabase : RoomDatabase(){
     abstract fun currentWeatherDao() : CurrentWeatherDAO
 
     companion object{
-        @Volatile
-        private var instance: ForecastDatabase? = null
+        @Volatile private var instance: ForecastDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context)= instance?: synchronized(LOCK){

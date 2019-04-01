@@ -7,8 +7,9 @@ import com.google.gson.annotations.SerializedName
 
 const val  CURRENT_WEATHER_ID = 0
 
-@Entity(tableName="current_Weather")
+@Entity(tableName="current_weather")
 data class CurrentWeatherEntry(
+    @Embedded(prefix = "condition_")
     val condition: Condition,
     @SerializedName("feelslike_c")
     val feelslikeC: Double,
@@ -16,7 +17,6 @@ data class CurrentWeatherEntry(
     val feelslikeF: Double,
     @SerializedName("is_day")
     val isDay: Int,
-    @Embedded(prefix = "condition_")
     @SerializedName("precip_in")
     val precipIn: Double,
     @SerializedName("precip_mm")

@@ -2,7 +2,10 @@ package com.example.forecastmvvm.ui.data.db.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+
+const val  CURRENT_WEATHER_ID = 0
 
 @Entity(tableName="current_Weather")
 data class CurrentWeatherEntry(
@@ -34,3 +37,7 @@ data class CurrentWeatherEntry(
     @SerializedName("wind_mph")
     val windMph: Double
 )
+{
+    @PrimaryKey(autoGenerate = false)
+    var id:Int = CURRENT_WEATHER_ID
+}

@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.forecastmvvm.ui.weather.future.list.FutureListWeatherFragment">
+        tools:context="com.example.forecastmvvm.ui.ui.settings.weather.future.list.FutureListWeatherFragment">
 
     <TextView
             android:layout_width="match_parent"

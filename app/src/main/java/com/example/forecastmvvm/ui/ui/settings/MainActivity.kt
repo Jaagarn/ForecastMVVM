@@ -1,4 +1,4 @@
-package com.example.forecastmvvm.ui
+package com.example.forecastmvvm.ui.ui.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

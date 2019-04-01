@@ -4,9 +4,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.forecastmvvm.ui.weather.current.CurrentWeatherFragment">
+        tools:context="com.example.forecastmvvm.ui.ui.settings.weather.current.CurrentWeatherFragment">
 
     <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Current"/>

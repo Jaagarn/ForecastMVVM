@@ -2,26 +2,19 @@ package com.example.forecastmvvm.ui.weather.current
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-
 import com.example.forecastmvvm.R
-import com.example.forecastmvvm.data.network.*
 import com.example.forecastmvvm.internal.glide.GlideApp
 import com.example.forecastmvvm.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.current_weather_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import java.util.concurrent.locks.Condition
 
 class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
@@ -48,11 +41,19 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch{
         val currentWeather = viewModel.weather.await()
+
+        val weatherLocation = viewModel.weatherLocation.await()
+
+        weatherLocation.observe(this@CurrentWeatherFragment, Observer { location ->
+            if (location == null) return@Observer
+             updateLocation(location.name)
+        })
+
         currentWeather.observe(this@CurrentWeatherFragment, Observer {
             if (it==null) return@Observer
 
             group_loading.visibility = View.GONE
-            updateLocation("Los Angeles")
+
             updateDateToToday()
             updateTemperatures(it.temperature, it.feelsLikeTemperature)
             updateCondition(it.conditionText)
@@ -84,7 +85,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     private fun updateTemperatures(temperature: Double, feelsLike: Double){
         val unitAbbriviation = chooseLocalizedAbbreviation("°C", "°F")
         textView_temperature.text ="$temperature$unitAbbriviation"
-        textView_feels_like_temperature.text = "$feelsLike$unitAbbriviation"
+        textView_feels_like_temperature.text = "Feels like $feelsLike$unitAbbriviation"
     }
 
     private fun updateCondition(condition: String){

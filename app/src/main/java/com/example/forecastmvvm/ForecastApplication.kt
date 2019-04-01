@@ -1,6 +1,8 @@
 package com.example.forecastmvvm
 
 import android.app.Application
+import android.content.Context
+import android.preference.PreferenceManager
 import com.example.forecastmvvm.data.db.ForecastDatabase
 import com.example.forecastmvvm.data.network.*
 import com.example.forecastmvvm.data.provider.LocationProvider
@@ -10,6 +12,7 @@ import com.example.forecastmvvm.data.provider.UnitProviderImpl
 import com.example.forecastmvvm.data.repository.ForecastRepository
 import com.example.forecastmvvm.data.repository.ForecastRepositoryImpl
 import com.example.forecastmvvm.ui.weather.current.CurrentWeatherViewModelFactory
+import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -29,7 +32,8 @@ class ForecastApplication : Application(), KodeinAware {
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { ApixuWeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with  singleton { WeatherNetworkDataSourceImpl(instance()) }
-        bind<LocationProvider>() with singleton { LocationProviderImpl() }
+        bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
+        bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
         bind<ForecastRepository>() with  singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
@@ -38,5 +42,6 @@ class ForecastApplication : Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
 }

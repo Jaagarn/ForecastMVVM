@@ -99,7 +99,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun updateWind(windDirection: String, windSpeed: Double) {
         val unitAbbriviation = chooseLocalizedAbbreviation("kph", "mph")
-        textView_wind.text ="Wind: $windDirection. $windSpeed $unitAbbriviation"
+        textView_wind.text ="Wind: $windDirection, $windSpeed $unitAbbriviation"
     }
 
     private fun updateVisibility(visibilityDistance: Double) {

@@ -1,6 +1,6 @@
-package com.example.forecastmvvm.ui.data
+package com.example.forecastmvvm.ui.data.network
 
-import com.example.forecastmvvm.ui.data.network.data.response.CurrentWeatherResponse
+import com.example.forecastmvvm.ui.data.network.response.CurrentWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -23,16 +23,23 @@ interface ApixuWeatherApiService {
     ): Deferred<CurrentWeatherResponse>
 
     companion object{
-        operator fun invoke(): ApixuWeatherApiService{
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): ApixuWeatherApiService {
             val requestInterceptor = Interceptor { chain ->
 
-                val url = chain.request().url().newBuilder().addQueryParameter("key", API_KEY).build()
+                val url = chain.request().url().newBuilder().addQueryParameter("key",
+                    API_KEY
+                ).build()
                 val request = chain.request().newBuilder().url(url).build()
 
                 return@Interceptor chain.proceed(request)
             }
 
-            val okHttpClient = OkHttpClient.Builder().addInterceptor(requestInterceptor).build()
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
+                .build()
             return Retrofit.Builder().client(okHttpClient).baseUrl("http://api.apixu.com/v1/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory()).addConverterFactory(GsonConverterFactory.create())
                 .build().create(ApixuWeatherApiService::class.java)

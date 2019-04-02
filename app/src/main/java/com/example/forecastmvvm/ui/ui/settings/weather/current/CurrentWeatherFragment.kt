@@ -13,7 +13,8 @@ import com.example.forecastmvvm.R
 import com.example.forecastmvvm.ui.data.network.ApixuWeatherApiService
 import com.example.forecastmvvm.ui.data.network.ConnectivityInterceptorImpl
 import com.example.forecastmvvm.ui.data.network.WeatherNetworkDataSourceImpl
-import com.example.forecastmvvm.ui.internal.GlideApp
+import com.example.forecastmvvm.ui.internal.glide.ForecastAppGlideModule
+import com.example.forecastmvvm.ui.internal.glide.GlideApp
 import com.example.forecastmvvm.ui.ui.settings.base.ScopedFragment
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +43,8 @@ class CurrentWeatherFragment : ScopedFragment(),KodeinAware {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this,viewModelFactory).get(CurrentWeatherViewModel::class.java)
 
+        bindUI()
+
 
     }
 
@@ -59,12 +62,13 @@ class CurrentWeatherFragment : ScopedFragment(),KodeinAware {
             updateWind(it.windDirection,it.windSpeed)
             updateVisibility(it.visibilityDistance)
 
-            GlideApp.with(this@CurrentWeatherFragment).load("http:${it.conditionIconUrl}")
+            GlideApp.with(this@CurrentWeatherFragment)
+                .load("http:${it.conditionIconUrl}")
                 .into(imageView_condition_icon)
         })
     }
 
-    private fun chooseLocalizedUnitAbbreviation(metric:String, imperial: String): String{
+    private fun chooseLocalizedUnitAbbreviation(metric: String, imperial: String): String{
         return if(viewModel.isMetric) metric else imperial
     }
 

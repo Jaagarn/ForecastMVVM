@@ -1,6 +1,7 @@
 package com.example.forecastmvvm.data.network
 
 import com.example.forecastmvvm.data.network.response.CurrentWeatherResponse
+import com.example.forecastmvvm.data.network.response.FutureWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -14,15 +15,22 @@ import retrofit2.http.Query
 
 const val API_KEY = "9ad6873a972d4a6d93f125406191103"
 
-//http://api.apixu.com/v1/current.json?key=9ad6873a972d4a6d93f125406191103&q=London
-
 interface ApixuWeatherApiService {
 
+    //http://api.apixu.com/v1/current.json?key=9ad6873a972d4a6d93f125406191103&q=London
     @GET("current.json")
     fun getCurrentWeather(
         @Query("q") location: String,
         @Query("lang") languageCode: String = "en"
     ): Deferred<CurrentWeatherResponse>
+
+    //http://api.apixu.com/v1/forecast.json?key=9ad6873a972d4a6d93f125406191103%20%20%20&q=Los%20Angeles&days=1
+    @GET("forecast.json")
+    fun getFutureWeather(
+        @Query("q") location: String,
+        @Query("days") days: Int,
+        @Query("lang") languageCode: String ="en"
+    ): Deferred<FutureWeatherResponse>
 
     companion object {
         operator fun invoke(

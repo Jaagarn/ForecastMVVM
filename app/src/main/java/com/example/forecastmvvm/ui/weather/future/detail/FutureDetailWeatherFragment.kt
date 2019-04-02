@@ -7,13 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.forecastmvvm.R
+import com.example.forecastmvvm.ui.base.ScopedFragment
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.factory
+import org.threeten.bp.LocalDate
 
 
-class FutureDetailWeatherFragment : Fragment() {
+class FutureDetailWeatherFragment : ScopedFragment(), KodeinAware {
 
-    companion object {
-        fun newInstance() = FutureDetailWeatherFragment()
-    }
+    override val kodein by closestKodein()
+
+    private val viewModelInstanceFactory
+            : ((LocalDate)-> FutureDetailWeatherViewModelFactory) by factory()
 
     private lateinit var viewModel: FutureDetailWeatherViewModel
 

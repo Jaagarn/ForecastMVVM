@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -52,9 +53,21 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         requestLocationPermission()
 
-        }
+        if(hasLocationPermission()){
+            bindLocationManager()
+        }else
+            requestLocationPermission()
 
-        override fun onSupportNavigateUp(): Boolean {
+        }
+    private fun bindLocationManager(){
+        LifecycleBoundLocationManager(
+            this,
+            fusedLocationProviderClient,
+            locationCallback
+        )
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(null, navController)
     }
 
@@ -64,6 +77,11 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
             MY_PERMISSION_ACCESS_COARSE_LOCATION
         )
+    }
+
+    private fun hasLocationPermission():Boolean{
+        return ContextCompat.checkSelfPermission(this,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(

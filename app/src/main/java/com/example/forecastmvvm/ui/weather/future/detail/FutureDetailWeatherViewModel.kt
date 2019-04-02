@@ -1,7 +1,18 @@
 package com.example.forecastmvvm.ui.weather.future.detail
 
 import androidx.lifecycle.ViewModel;
+import com.example.forecastmvvm.data.provider.UnitProvider
+import com.example.forecastmvvm.data.repository.ForecastRepository
+import com.example.forecastmvvm.internal.lazyDeferred
+import com.example.forecastmvvm.ui.base.WeatherViewModel
+import org.threeten.bp.LocalDate
 
-class FutureDetailWeatherViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class FutureDetailWeatherViewModel(
+    private val forecastRepository: ForecastRepository,
+    unitProvider: UnitProvider
+) : WeatherViewModel(forecastRepository, unitProvider) {
+
+    val weatherEntries by lazyDeferred {
+        forecastRepository.getFutureWeatherList(LocalDate.now(), super.isMetric)
+    }
 }

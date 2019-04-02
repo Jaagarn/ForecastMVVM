@@ -3,6 +3,8 @@ package com.example.forecastmvvm.ui
 import android.app.Application
 import com.example.forecastmvvm.ui.data.db.ForecastDatabase
 import com.example.forecastmvvm.ui.data.network.*
+import com.example.forecastmvvm.ui.data.provider.LocationProvider
+import com.example.forecastmvvm.ui.data.provider.LocationProviderImpl
 import com.example.forecastmvvm.ui.data.provider.UnitProvider
 import com.example.forecastmvvm.ui.data.provider.UnitProviderImpl
 import com.example.forecastmvvm.ui.data.repository.ForecastRepository
@@ -24,10 +26,12 @@ class ForecastApplication: Application(), KodeinAware {
 
         bind() from singleton { ForecastDatabase(instance()) }
         bind() from singleton { instance<ForecastDatabase>().currentWeatherDao() }
+        bind() from singleton { instance<ForecastDatabase>().weatherLocationDao() }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { ApixuWeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
-        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(),instance()) }
+        bind<LocationProvider>() with singleton { LocationProviderImpl() }
+        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(),instance(),instance(),instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
         bind() from provider { CurrentWeatherViewModelFactory(instance(),instance()) }
     }

@@ -1,4 +1,4 @@
-package com.example.forecastmvvm.ui.data.db.unitlocalized
+package com.example.forecastmvvm.ui.data.db.unitlocalized.current
 
 import androidx.room.ColumnInfo
 

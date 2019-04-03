@@ -1,4 +1,4 @@
-package com.example.forecastmvvm.ui.data.network.response
+package com.example.forecastmvvm.ui.data.db.entity
 
 import androidx.room.Embedded
 import com.example.forecastmvvm.ui.data.db.entity.Condition

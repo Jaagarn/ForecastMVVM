@@ -1,4 +1,21 @@
 package com.example.forecastmvvm.ui.ui.settings.weather.future.list
 
-class FutureListWeatherViewModelFactory {
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.forecastmvvm.ui.data.provider.UnitProvider
+import com.example.forecastmvvm.ui.data.repository.ForecastRepository
+
+
+class FutureListWeatherViewModelFactory(
+    private val forecastRepository: ForecastRepository,
+    private val unitProvider: UnitProvider
+): ViewModelProvider.NewInstanceFactory(){
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return FutureListWeatherViewModel(
+            forecastRepository,
+            unitProvider
+        )as T
+    }
+
 }

@@ -1,10 +1,10 @@
-package com.example.forecastmvvm.ui.data.network.response
+package com.example.forecastmvvm.ui.data.db.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.example.forecastmvvm.ui.data.db.entity.Day
 
 @Entity(tableName = "future_weather", indices = [Index(value = ["date"], unique = true)])
 data class FutureWeatherEntry(

@@ -15,8 +15,9 @@ import com.example.forecastmvvm.R
 import com.example.forecastmvvm.ui.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
 import com.example.forecastmvvm.ui.ui.settings.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.current_weather_fragment.*
+import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+//import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kodein.di.Kodein
@@ -82,7 +83,7 @@ class FutureListWeatherFragment : ScopedFragment() , KodeinAware{
         val groupAdapter = GroupAdapter<ViewHolder>().apply{
             addAll(items)
         }
-        recyclerView.apply{
+        recyclerView.apply {
             layoutManager = LinearLayoutManager(this@FutureListWeatherFragment.context)
             adapter = groupAdapter
         }

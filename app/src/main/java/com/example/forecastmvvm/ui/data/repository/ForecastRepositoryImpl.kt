@@ -18,8 +18,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDate
-import java.time.ZonedDateTime
-//import org.threeten.bp.ZonedDateTime
+import org.threeten.bp.ZonedDateTime
 
 
 import java.util.*
@@ -65,7 +64,7 @@ class ForecastRepositoryImpl (
     override suspend fun getFutureWeatherByDate(
         date: LocalDate,
         metric: Boolean
-    ): LiveData<out List<UnitSpecificDetailFutureWeatherEntry>> {
+    ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
         return withContext(Dispatchers.IO){
             initWeatherData()
             return@withContext if(metric)futureWeatherDao.getDetailedWeatherForecastsMetric(date)
@@ -133,7 +132,7 @@ class ForecastRepositoryImpl (
 
     private fun isFetchCurrentNeeded(lastFetchTime: ZonedDateTime): Boolean{
         val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
-        return true//lastFetchTime.isBefore(thirtyMinutesAgo)
+        return lastFetchTime.isBefore(thirtyMinutesAgo)
     }
 
     private fun isFetchFutureNeeded():Boolean{

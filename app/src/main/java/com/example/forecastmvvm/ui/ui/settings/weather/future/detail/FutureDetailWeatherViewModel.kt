@@ -1,6 +1,5 @@
 package com.example.forecastmvvm.ui.ui.settings.weather.future.detail
 
-import androidx.lifecycle.ViewModel;
 import com.example.forecastmvvm.ui.data.provider.UnitProvider
 import com.example.forecastmvvm.ui.data.repository.ForecastRepository
 import com.example.forecastmvvm.ui.internal.lazyDeferred
@@ -14,6 +13,7 @@ class FutureDetailWeatherViewModel (
     unitProvider: UnitProvider
 
 ): WeatherViewModel(forecastRepository , unitProvider) {
+
     val weather by lazyDeferred{
         forecastRepository.getFutureWeatherByDate(detailDate, super.isMetricUnit)
     }

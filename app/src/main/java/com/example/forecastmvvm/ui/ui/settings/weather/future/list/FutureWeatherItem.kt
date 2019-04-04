@@ -27,8 +27,8 @@ class FutureWeatherItem(
     override fun getLayout() = R.layout.item_future_weather
 
     private fun ViewHolder.updateDate(){
-        val dtFomatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-        textView_date.text = weatherEntry.date.format(dtFomatter)
+        val dtFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        textView_date.text = weatherEntry.date.format(dtFormatter)
     }
 
     private fun ViewHolder.updateTemperature(){

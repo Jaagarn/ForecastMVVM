@@ -2,6 +2,8 @@ package com.example.forecastmvvm.ui
 
 import android.app.Application
 import android.content.Context
+import android.preference.PreferenceManager
+import com.example.forecastmvvm.R
 import com.example.forecastmvvm.ui.data.db.ForecastDatabase
 import com.example.forecastmvvm.ui.data.network.*
 import com.example.forecastmvvm.ui.data.provider.LocationProvider
@@ -29,11 +31,12 @@ class ForecastApplication: Application(), KodeinAware {
         bind() from singleton { ForecastDatabase(instance()) }
         bind() from singleton { instance<ForecastDatabase>().currentWeatherDao() }
         bind() from singleton { instance<ForecastDatabase>().futureWeatherDao() }
-
-
         bind() from singleton { instance<ForecastDatabase>().weatherLocationDao() }
+
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
+
         bind() from singleton { ApixuWeatherApiService(instance()) }
+
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
 
         bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
@@ -54,5 +57,6 @@ class ForecastApplication: Application(), KodeinAware {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
 }

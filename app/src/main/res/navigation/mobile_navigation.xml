@@ -23,10 +23,10 @@
             android:id="@+id/futureDetailWeatherFragment"
             android:name="com.example.forecastmvvm.ui.ui.settings.weather.future.detail.FutureDetailWeatherFragment"
             android:label="future_detail_weather_fragment"
-            tools:layout="@layout/future_detail_weather_fragment" >
+    >
         <argument
                 android:name="dateString"
-                app:argType="string" />
+                app:argType="string"/>
     </fragment>
     <fragment
             android:id="@+id/settingsFragment"

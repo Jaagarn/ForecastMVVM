@@ -5,10 +5,10 @@ import org.threeten.bp.LocalDate
 
 
 data class ImperialDetailFutureWeatherEntry(
-    @ColumnInfo(name="date")
-    override val date: LocalDate,
     @ColumnInfo(name="maxtempF")
     override val maxTemperature: Double,
+    @ColumnInfo(name="date")
+    override val date: LocalDate,
     @ColumnInfo(name="mintempF")
     override val minTemperature: Double,
     @ColumnInfo(name="avgtempF")

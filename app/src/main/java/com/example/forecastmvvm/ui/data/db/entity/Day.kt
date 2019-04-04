@@ -1,7 +1,6 @@
 package com.example.forecastmvvm.ui.data.db.entity
 
 import androidx.room.Embedded
-import com.example.forecastmvvm.ui.data.db.entity.Condition
 import com.google.gson.annotations.SerializedName
 
 data class Day(

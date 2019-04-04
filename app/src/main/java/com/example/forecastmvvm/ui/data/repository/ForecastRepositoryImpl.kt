@@ -6,7 +6,8 @@ import com.example.forecastmvvm.ui.data.db.FutureWeatherDao
 import com.example.forecastmvvm.ui.data.db.WeatherLocationDao
 import com.example.forecastmvvm.ui.data.db.entity.WeatherLocation
 import com.example.forecastmvvm.ui.data.db.unitlocalized.current.UnitSpecifiedCurrentWeatherEntry
-import com.example.forecastmvvm.ui.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.example.forecastmvvm.ui.data.db.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
+import com.example.forecastmvvm.ui.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.forecastmvvm.ui.data.network.FORECAST_DAYS
 import com.example.forecastmvvm.ui.data.network.WeatherNetworkDataSource
 import com.example.forecastmvvm.ui.data.network.response.CurrentWeatherResponse
@@ -58,6 +59,17 @@ class ForecastRepositoryImpl (
             initWeatherData()
             return@withContext if(metric)futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
             else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
+        }
+    }
+
+    override suspend fun getFutureWeatherByDate(
+        date: LocalDate,
+        metric: Boolean
+    ): LiveData<out List<UnitSpecificDetailFutureWeatherEntry>> {
+        return withContext(Dispatchers.IO){
+            initWeatherData()
+            return@withContext if(metric)futureWeatherDao.getDetailedWeatherForecastsMetric(date)
+            else futureWeatherDao.getDetailedWeatherForecastsImperial(date)
         }
     }
 

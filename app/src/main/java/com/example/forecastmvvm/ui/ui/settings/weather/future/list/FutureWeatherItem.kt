@@ -2,8 +2,8 @@ package com.example.forecastmvvm.ui.ui.settings.weather.future.list
 
 
 import com.example.forecastmvvm.R
-import com.example.forecastmvvm.ui.data.db.unitlocalized.future.MetricSimpleFutureWeatherEntry
-import com.example.forecastmvvm.ui.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.example.forecastmvvm.ui.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
+import com.example.forecastmvvm.ui.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.forecastmvvm.ui.internal.glide.GlideApp
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder

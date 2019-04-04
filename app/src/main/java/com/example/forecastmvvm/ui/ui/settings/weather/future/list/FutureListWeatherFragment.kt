@@ -17,7 +17,6 @@ import com.example.forecastmvvm.ui.data.db.unitlocalized.future.list.UnitSpecifi
 import com.example.forecastmvvm.ui.ui.settings.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-//import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.future_list_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

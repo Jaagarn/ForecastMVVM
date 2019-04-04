@@ -13,7 +13,7 @@ class CurrentWeatherViewModel(
 ) : WeatherViewModel(forecastRepository,unitProvider){
 
 
-    val weather by lazyDeferred() {
+    val weather by lazyDeferred {
         forecastRepository.getCurrentWeather(super.isMetricUnit)
     }
 

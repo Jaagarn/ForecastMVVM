@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
-import java.util.jar.Manifest
+import android.Manifest
 
 private const val MY_PERMISSION_ACCESS_COARSE_LOCATION = 1
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     private val fusedLocationProviderClient: FusedLocationProviderClient by instance()
 
-    private lateinit var navController: NavController
+
 
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(p0: LocationResult?) {
@@ -36,16 +36,15 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         //fix for crash. It fixes crash nullpointer exeption
         setSupportActionBar(toolbar)
 
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
 
         bottom_nav.setupWithNavController(navController)
 
@@ -74,14 +73,14 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     private fun requestLocationPermission(){
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
             MY_PERMISSION_ACCESS_COARSE_LOCATION
         )
     }
 
     private fun hasLocationPermission():Boolean{
         return ContextCompat.checkSelfPermission(this,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED
+            Manifest.permission.ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(

@@ -11,7 +11,6 @@ class FutureDetailWeatherViewModel (
     private val detailDate: LocalDate,
     private val forecastRepository: ForecastRepository,
     unitProvider: UnitProvider
-
 ): WeatherViewModel(forecastRepository , unitProvider) {
 
     val weather by lazyDeferred{
